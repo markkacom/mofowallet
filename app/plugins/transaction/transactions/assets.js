@@ -207,7 +207,7 @@ module.run(function (plugins, modals, $q, $rootScope, nxt, OrderEntryProvider, U
         },
         fields: [
           plugin.fields('asset').create('asset', {
-            value: args.asset || '',
+            value: args.asset || '0',
             label: 'Asset (0 means FIMK)',
             required: true,
             account: $rootScope.currentAccount.id_rs,
