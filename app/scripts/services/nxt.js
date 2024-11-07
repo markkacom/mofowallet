@@ -162,6 +162,16 @@ module.factory('nxt', function ($rootScope, $modal, $http, $q, modals, i18n, db,
           return this._localSocket || (this._localSocket = new MofoSocket(this, true));
         }
       }
+
+      if (this._socket && !this._socket.is_connected) {
+        var self = this
+        setTimeout(function () {
+          if (!self._socket.is_connected) {
+            self._socket.close()
+            self._socket.refresh()
+          }
+        }, 1000)
+      }
       return this._socket || (this._socket = new MofoSocket(this));
     },
 

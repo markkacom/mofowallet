@@ -218,6 +218,14 @@ module.factory('MofoSocket', function ($q, $timeout, $interval, $rootScope) {
       }
     },
 
+    close: function () {
+      if (this.socket) {
+        this.socket.close();
+      }
+    },
+
+    refreshDelay: 2000,
+
     refresh: function () {
       if (this.debug) {
         console.log('WEBSOCKET - refresh ' + this.engine.symbol);
@@ -322,6 +330,7 @@ module.factory('MofoSocket', function ($q, $timeout, $interval, $rootScope) {
 
       /* if connected to a remote node auto reconnect,
          if connected to localhost only reconnect when server is running */
+      this.refreshDelay = this.refreshDelay > 30000 ? 6000 : this.refreshDelay * 1.5
       if (this.force_local) {
         if (this.engine.serverIsRunning) {
           $timeout(this._createDelayedRefreshHandler(this), 2000, false);
