@@ -399,15 +399,15 @@
           </label>
           <label>
             <input type="radio" name="type" ng-model="items.txnMessageType" value="to_self"
-              ng-disabled="sendSuccess">Message to self&nbsp;
-          </label>
-          <label>
-            <input type="radio" name="type" ng-model="items.txnMessageType" value="public"
-              ng-disabled="sendSuccess">Public message
+              ng-disabled="sendSuccess">Encrypted note to self&nbsp;
           </label>
           <label>
             <input type="radio" name="type" ng-model="items.txnMessageType" value="note"
-              ng-disabled="sendSuccess">Note
+              ng-disabled="sendSuccess">Encrypted blockchain note
+          </label>
+          <label>
+            <input type="radio" name="type" ng-model="items.txnMessageType" value="public"
+                   ng-disabled="sendSuccess">Public message
           </label>
         </div>
       </div>

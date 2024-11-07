@@ -561,15 +561,15 @@ module.run(function (plugins, modals, $q, $rootScope, nxt, OrderEntryProvider, U
   });
 
   plugin.add({
-    label: 'Add private account',
+    label: 'Enable private asset for account',
     id: 'addPrivateAssetAccount',
     exclude: $rootScope.TRADE_UI_ONLY,
     execute: function (args) {
       var api = nxt.get($rootScope.currentAccount.id_rs);
       args = args||{};
       return plugin.create(angular.extend(args, {
-        title: 'Add private account',
-        message: 'Add private account',
+        title: 'Enable private asset for account',
+        message: 'Enable private asset for account',
         requestType: 'addPrivateAssetAccount',
         canHaveRecipient: true,
         editRecipient: true,
@@ -592,14 +592,14 @@ module.run(function (plugins, modals, $q, $rootScope, nxt, OrderEntryProvider, U
     }
   });
   plugin.add({
-    label: 'Remove private account',
+    label: 'Disable private asset for account',
     id: 'removePrivateAssetAccount',
     exclude: $rootScope.TRADE_UI_ONLY,
     execute: function (args) {
       var api = nxt.get($rootScope.currentAccount.id_rs);
       args = args||{};
       return plugin.create(angular.extend(args, {
-        title: 'Remove private account',
+        title: 'Enable private asset for account',
         message: 'Remove private account',
         requestType: 'removePrivateAssetAccount',
         canHaveRecipient: true,
