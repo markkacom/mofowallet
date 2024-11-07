@@ -33,7 +33,7 @@ module.factory('PeerProvider', function (nxt, $timeout, $q, $rootScope) {
     this.isLoading  = false;
     this.peers      = [];
     this.socketUrl = "";
-    this.serverIP = "";
+    this.serverAddress = "";
 
     var socket      = this.socket();
     var update      = angular.bind(this, this.onUpdate);
@@ -47,6 +47,9 @@ module.factory('PeerProvider', function (nxt, $timeout, $q, $rootScope) {
     socket.subscribe("PEER_ADDED_ACTIVE_PEER", update, $scope);
     socket.subscribe("PEER_CHANGED_ACTIVE_PEER", update, $scope);
     socket.subscribe("PEER_NEW_PEER", angular.bind(this, this.onNewPeer), $scope);
+
+    // todo set this.serverAddress  self.setServerInetAddress(socket.socket.url);
+
 
     var self = this, unregister = $rootScope.$on('$translateChangeSuccess', function () {
       $scope.$evalAsync(function () {
@@ -66,6 +69,7 @@ module.factory('PeerProvider', function (nxt, $timeout, $q, $rootScope) {
       var self = this;
       this.$scope.$evalAsync(function () {
         self.getNetworkData();
+        self.peers = [];
       });
     },
 
@@ -76,7 +80,6 @@ module.factory('PeerProvider', function (nxt, $timeout, $q, $rootScope) {
       this.socketUrl = socket.url;
       socket.callAPIFunction(arg).then(
         function (data) {
-          self.setServerInetAddress(data.inetAddress)
           self.$scope.$evalAsync(function () {
             self.isLoading = false;
             self.peers = data.peers;
@@ -109,7 +112,7 @@ module.factory('PeerProvider', function (nxt, $timeout, $q, $rootScope) {
           p.stateClass = 'danger';
           break
       }
-      if (this.serverIP === p.address) {
+      if (this.serverAddress === p.announcedAddress) {
         p.stateStr = 'API server';
         p.stateClass = 'info';
         p.version = $rootScope.FIM_SERVER_VERSION;
@@ -176,7 +179,7 @@ module.factory('PeerProvider', function (nxt, $timeout, $q, $rootScope) {
       // format "host/ip". Host maybe empty
       if (inetAddress) {
         var hostAndIp = inetAddress.split("/");
-        if (hostAndIp.length > 1) this.serverIP = hostAndIp[1]
+        if (hostAndIp.length > 1) this.serverAddress = hostAndIp[1]
       }
     }
 

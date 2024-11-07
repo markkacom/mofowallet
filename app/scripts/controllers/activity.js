@@ -96,6 +96,7 @@ module.controller('ActivityController', function($scope, $location, $routeParams
 
   $scope.setEngineUrl = function (url) {
     api.engine.forceSocketURL(url);
+    $scope.provider.reload();
   };
 
   $scope.urlList = api.engine.urlPool.hosts.map(function (v) {
